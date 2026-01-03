@@ -37,21 +37,21 @@ After the evaluation, the results are available for viewing, showing which servi
 
 <sub>The models and their documentation can be updated after the project is completed. The information presented refers to the period of June 2025.</sub>
 
-## 🛠️ Instalação e Execução
+## 🛠️ Installation and Execution
 
 The application was developed in **Python 3.10**, and it is recommended to use this version to ensure compatibility. To configure it, follow these instructions from the project's root directory.
 
-### 1️⃣ Configurar as Variáveis de Ambiente
+### 1️⃣ Configure Environment Variables
 
 Before installing and running the application, it is necessary to configure the access keys to the AI ​​services as environment variables. To do this, create a `.env` file, based on `.env.example`, and assign the values ​​for `GEMINI_KEY`, `OPENAI_KEY`, `RUNWARE_KEY`, and `STABILITY_AI_KEY`.
 
-### 2️⃣ Instalar as Dependências
+### 2️⃣ Install the Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Executar a Aplicação
+### 3️⃣ Run the Application
 
 ```bash
 python -m app
@@ -59,23 +59,23 @@ python -m app
 
 <sub>The images are generated during the server's initial startup, which causes a longer waiting time. This process only occurs once, unless the database is deleted.</sub>
 
-## 🚀 Fluxo de Funcionamento
+## 🚀 Workflow
 
 The application works through three main stages that occur sequentially and are interdependent.
 
-### 🖼️ Geração das Imagens
+### 🖼️ Image Generation
 
 On the first execution of the application, the `generation_entries.json` file is read to retrieve the `group`, `theme`, and `prompt` attributes. From this information, requests are made to each AI service in random order. The generated images are saved in the SQLite database, located in the project root, and stored as PNG files in the `static/img` directory.
 
 Se o banco de dados apresentar registros de imagem, essa etapa é ignorada em execuções futuras.
 
-### 🤖 Avaliação do ChatGPT
+### 🤖 ChatGPT Review
 
 After generation, the images are evaluated by ChatGPT. They are grouped and sent without the name of the generating model, containing only the identifier and binary content. For each group, one image is chosen as the best, and the result is recorded in the database.
 
 This step is also skipped in future executions if there is already a record of evaluation done by ChatGPT.
 
-### 👤 Avaliação do Usuário
+### 👤 User Review
 
 With the ChatGPT images and ratings ready, the user can access the application interface and vote for the best images via prompt. The process is intuitive and at the end it is possible to view:
 
